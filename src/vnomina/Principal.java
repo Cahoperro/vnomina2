@@ -1137,18 +1137,18 @@ public class Principal extends javax.swing.JFrame {
         lblRestantes.setText("" + (Math.floor((horasConvenio - horasAnio) * 10)) / 10 );
        
         double tendencia = 0;
-        int diferencia;
+        //double diferencia;
         for (int i = 0; i < (selectorMes.getSelectedIndex() + 1); i++) {
-            tendencia += principal.mes[i].getHorasMes();
+            tendencia += (principal.mes[i].getHorasMes() - 162);
         }
-        tendencia = tendencia / (selectorMes.getSelectedIndex() + 1);
-        diferencia = (int) tendencia - 162;
-        if (diferencia < 0) {
+        
+        tendencia = (Math.floor(tendencia * 10)) / 10;
+        if (tendencia < 0) {
             lblTendencia.setForeground(Color.red);
-            lblTendencia.setText("" + diferencia);
+            lblTendencia.setText("" + tendencia);
         } else {
             lblTendencia.setForeground(Color.BLACK);
-            lblTendencia.setText("+" + diferencia);
+            lblTendencia.setText("" + tendencia);
         }
 
         for (int i = 0; i < 32; i++) {
