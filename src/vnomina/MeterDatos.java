@@ -130,7 +130,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
 
         txtHoraFestiva.setColumns(6);
 
-        jLabel1.setText("Horas anuales");
+        jLabel1.setText("Jornada %");
 
         jLabel2.setText("Años antiguedad");
 
@@ -257,7 +257,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
                                 .addComponent(txtRadio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel16)
-                                .addContainerGap(24, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -449,6 +449,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
                 inicio.d.setTrienio(Double.parseDouble(txtTrienio.getText().replace(',', '.')));
                 inicio.d.setVestuario(Double.parseDouble(txtVestuario.getText().replace(',', '.')));
                 inicio.mostrarTitulo();
+               
 
                 this.dispose();
             } catch (NumberFormatException ex) {

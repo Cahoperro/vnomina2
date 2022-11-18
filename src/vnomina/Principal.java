@@ -30,14 +30,15 @@ public class Principal extends javax.swing.JFrame {
     MeterDatos meteDato;
     MeterHoras meteHora;
     String fichero, textomes;
+    double horasMensuales = 162;
     double horas, horasFestivas, horasNocturnas, horasRadio, horasRadioB, horasArma;
     double salarioBase, antiguedad, tAntiguedad, festivos, nocturnos, pPeligrosidad;
     double horasVacaciones, pPagasExtras, horasExtra, pTransporte, pVestuario;
     double cComunes, desempleo, fp, tAportaciones, tDevengado, tDeducir, tExtra, liquido;
     double vExtra, vNocturna, vFestiva, vRadio, vRadioB, vArma, tArma;
-    double vNochebuena, vQuinquenio, vTrienio, vKilometro, horasConvenio;
+    double vNochebuena, vQuinquenio, vTrienio, vKilometro, jornada;
     double dCcomunes, dHorasExtra, IRPF, tIrpf, JefeEquipo, tNochebuena;
-    double tHorasRadio, tHorasRadioB;
+    double tHorasRadio, tHorasRadioB, horasAnuales, horasJornadaMensual;
 
     /**
      * Creates new form Principal
@@ -338,7 +339,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel25.setText("Base accidente");
 
-        jLabel26.setText("No usado");
+        jLabel26.setText("Jornada %");
 
         jLabel27.setText("Total aportaciones");
 
@@ -777,7 +778,9 @@ public class Principal extends javax.swing.JFrame {
 
         // Codigo de abrir archivo
         if (principal == null) {
-            JFileChooser selector = new JFileChooser();
+            // este codigo hace que se abra el cuadro de dialogo para abrir un archivo en el directorio actual
+            File file = new File("");
+            JFileChooser selector = new JFileChooser(file.getAbsoluteFile().toString()); // dejar el constructor en blanco para abrir desde "documentos"
             FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos chp", "chp");
             selector.setFileFilter(filtro);
             try {
@@ -899,22 +902,35 @@ public class Principal extends javax.swing.JFrame {
         principal.mesActual = selectorMes.getSelectedIndex();
         mostrarTitulo();
         recuperarDatos();
-        mostrarResultado();
         calcular();
+       
+
     }//GEN-LAST:event_selectorMesItemStateChanged
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
 
         // Calcular todos los totales
+        recuperarDatos();
         calcular();
+
+
     }//GEN-LAST:event_btnCalcularActionPerformed
+    private double porcentaje(double n, double h) {
+        return (Math.floor(n * h)) / 100;
+    }
+
     public void recuperarDatos() {
-        horasConvenio = principal.datos.getHorasConvenio();
-        salarioBase = principal.datos.getSalarioBase();
+
+        // jornada = porcentaje jornada
+        jornada = principal.datos.getHorasConvenio();
+        horasJornadaMensual = porcentaje(horasMensuales, jornada);
+        horasAnuales = horasJornadaMensual * 12;
+
+        salarioBase = porcentaje(principal.datos.getSalarioBase(), jornada);
         antiguedad = principal.datos.getAntiguedad();
-        pPeligrosidad = principal.datos.getPeligro();
-        pTransporte = principal.datos.getTransporte();
-        pVestuario = principal.datos.getVestuario();
+        pPeligrosidad = porcentaje(principal.datos.getPeligro(), jornada);
+        pTransporte = porcentaje(principal.datos.getTransporte(), jornada);
+        pVestuario = porcentaje(principal.datos.getVestuario(), jornada);
         vExtra = principal.datos.getHoraExtra();
         vFestiva = principal.datos.getHoraFestiva();
         vNocturna = principal.datos.getHoraNocturna();
@@ -922,8 +938,8 @@ public class Principal extends javax.swing.JFrame {
         vRadioB = principal.datos.getRadioBasica();
         vArma = principal.datos.getHoraArma();
         vNochebuena = principal.datos.getNochebuena();
-        vQuinquenio = principal.datos.getQuinquenio();
-        vTrienio = principal.datos.getTrienio();
+        vQuinquenio = porcentaje(principal.datos.getQuinquenio(), jornada);
+        vTrienio = porcentaje(principal.datos.getTrienio(), jornada);
         vKilometro = principal.datos.getKilometraje();
         horas = principal.mes[principal.mesActual].getHorasMes();
         horasFestivas = principal.mes[principal.mesActual].getHorasFestivas();
@@ -1003,7 +1019,10 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCambioDatosActionPerformed
     public void guardarComo() {
-        JFileChooser selector = new JFileChooser();
+        File file = new File("");
+        // abre el dialogo en el fichero actual, dejar el constructor en blanco para abrir en "documentos"
+        JFileChooser selector = new JFileChooser(file.getAbsoluteFile().toString());
+
         try {
             if (selector.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                 fichero = selector.getSelectedFile().toString();
@@ -1086,7 +1105,7 @@ public class Principal extends javax.swing.JFrame {
             }
             // comprobar que esta marcado el prorrateo de pagas extras
             if (chkPagas.isSelected()) {
-                
+
                 pPagasExtras = ((salarioBase + tAntiguedad + pPeligrosidad) * 3) / 12;
             } else {
                 pPagasExtras = 0;
@@ -1116,7 +1135,7 @@ public class Principal extends javax.swing.JFrame {
         lblVestuario.setText("" + pVestuario);
         lblComunes.setText("" + dCcomunes);
         lblDesempleo.setText("" + desempleo);
-        lblFP.setText("" + fp);
+        lblFP.setText("" + jornada);
         lblTolalAportaciones.setText("" + tAportaciones);
         lblIrpf.setText("" + IRPF);
         lblTotalDevengado.setText("" + tDevengado);
@@ -1134,14 +1153,14 @@ public class Principal extends javax.swing.JFrame {
         for (int i = 0; i < 12; i++) {
             horasAnio += principal.mes[i].getHorasMes();
         }
-        lblRestantes.setText("" + (Math.floor((horasConvenio - horasAnio) * 10)) / 10 );
-       
+        lblRestantes.setText("" + (Math.floor((horasAnuales - horasAnio) * 10)) / 10);
+
         double tendencia = 0;
-        //double diferencia;
+
         for (int i = 0; i < (selectorMes.getSelectedIndex() + 1); i++) {
-            tendencia += (principal.mes[i].getHorasMes() - 162);
+            tendencia += (principal.mes[i].getHorasMes() - horasJornadaMensual);
         }
-        
+
         tendencia = (Math.floor(tendencia * 10)) / 10;
         if (tendencia < 0) {
             lblTendencia.setForeground(Color.red);

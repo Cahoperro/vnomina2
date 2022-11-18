@@ -646,7 +646,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel26">
               <Properties>
-                <Property name="text" type="java.lang.String" value="No usado"/>
+                <Property name="text" type="java.lang.String" value="Jornada %"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel27">
