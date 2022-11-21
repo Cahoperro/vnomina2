@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 public class Datos implements Serializable{
     private int antiguedad;
-    private Double horasConvenio,salarioBase,transporte,vestuario,peligro;
+    private Double porcentaje,salarioBase,transporte,vestuario,peligro;
     private Double trienio,quinquenio,horaNocturna,horaFestiva;
     private Double horaExtra,horaArma,nochebuena,kilometraje,radio,radioBasica;
 
@@ -20,12 +20,12 @@ public class Datos implements Serializable{
         this.antiguedad = antiguedad;
     }
 
-    public Double getHorasConvenio() {
-        return horasConvenio;
+    public Double getPorcentaje() {
+        return porcentaje;
     }
 
-    public void setHorasConvenio(Double horasConvenio) {
-        this.horasConvenio = horasConvenio;
+    public void setPorcentaje(Double porcentaje) {
+        this.porcentaje = porcentaje;
     }
 
     public Double getSalarioBase() {

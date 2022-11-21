@@ -9,11 +9,12 @@ import java.util.GregorianCalendar;
  */
 public class Dias implements Serializable {
 
-    private boolean arma, festivo, radioscopia, radio, radioB;
+    //Datos d = new Datos();
+    private boolean arma, festivo, radioscopia, radio, radioB, vacaciones;
     private String servicio1, servicio2, entrada1, entrada2;
     private String festividad, salida1, salida2, claveServicio;
     private double tempHoras, tempNocturnas, tempFestivas, tempRadio, tempRadioB;
-    private double tempHoras1, tempHoras2, tempNoct1, tempNoct2, tempFest1, tempFest2;
+    private double tempHoras1, tempHoras2, tempNoct1, tempNoct2, tempFest1, tempFest2, temVacaciones;
     private int diaSemana;
     private int HEntrada1, MEntrada1, HSalida1, MSalida1;
     private int HEntrada2, MEntrada2, HSalida2, MSalida2;
@@ -41,7 +42,6 @@ public class Dias implements Serializable {
             tempFest1 = 0;
         }
 
-
         if (entrada2 != null && salida2 != null && !entrada2.isEmpty() && !salida2.isEmpty()) {
             ste = entrada2.split(":");
             sts = salida2.split(":");
@@ -58,10 +58,18 @@ public class Dias implements Serializable {
             tempNoct2 = 0;
             tempFest2 = 0;
         }
-        tempHoras = tempHoras1 + tempHoras2;
+
+        if (vacaciones) {
+            double horasVacacionesDia = Principal.horasJornadaMensual / 31;
+            double medio = Math.round(horasVacacionesDia * 100);
+            temVacaciones = medio / 100;
+        } else {
+            temVacaciones = 0;
+        }
+
+        tempHoras = tempHoras1 + tempHoras2 + temVacaciones;
         tempNocturnas = tempNoct1 + tempNoct2;
         tempFestivas = tempFest1 + tempFest2;
-
 
         if (radioscopia) {
             if (radio) {
@@ -117,7 +125,7 @@ public class Dias implements Serializable {
     }
 
     private double calFestivas(int h1, int m1, double h) {
-        double ent = (double)h1 + ((double)m1 / 60);
+        double ent = (double) h1 + ((double) m1 / 60);
         double horas = h;
         boolean hoy, manana;
         double fest;
@@ -131,27 +139,31 @@ public class Dias implements Serializable {
                 manana = Ob.mes[Ob.mesActual].dia[Ob.diaActual + 1].isFestivo();
             }
         }
-        
-        if (hoy && manana){
-          fest = horas;  
-        }else if (hoy && !manana){
-            if (ent >=0 && ent < 5){
+
+        if (hoy && manana) {
+            fest = horas;
+        } else if (hoy && !manana) {
+            if (ent >= 0 && ent < 5) {
                 fest = 0;
-            }else{
-                fest = 24 -ent;
+            } else {
+                fest = 24 - ent;
             }
-        }else if (!hoy && manana){
-            if (ent >=0 && ent < 5){
+        } else if (!hoy && manana) {
+            if (ent >= 0 && ent < 5) {
                 fest = horas;
-            }else{
-                fest = horas - (24 -ent);
+            } else {
+                fest = horas - (24 - ent);
             }
-        }else{
+        } else {
             fest = 0;
         }
-        if (fest < 0) fest = 0;
-        if (fest > horas) fest = horas;
-        
+        if (fest < 0) {
+            fest = 0;
+        }
+        if (fest > horas) {
+            fest = horas;
+        }
+
         return fest;
     }
 
@@ -237,6 +249,14 @@ public class Dias implements Serializable {
 
     public boolean isRadio() {
         return radio;
+    }
+
+    public boolean isVacaciones() {
+        return vacaciones;
+    }
+
+    public void setVacaciones(boolean vacaciones) {
+        this.vacaciones = vacaciones;
     }
 
     public void setRadio(boolean radio) {

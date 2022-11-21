@@ -17,7 +17,7 @@ public class Calculo {
     }
 
     public void calcular() {
-        p.tArma = p.horasArma * p.vArma;
+        p.tArma = redondear(p.horasArma * p.vArma);
         p.horas = p.horas + p.horasVacaciones;
         p.horasExtra = p.horas - 176;
         if (p.horasExtra < 0) {

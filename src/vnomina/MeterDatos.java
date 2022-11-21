@@ -33,7 +33,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
             txtHoraExtra.setText("" + inicio.principal.datos.getHoraExtra());
             txtHoraFestiva.setText("" + inicio.principal.datos.getHoraFestiva());
             txtHoraNocturna.setText("" + inicio.principal.datos.getHoraNocturna());
-            txtHorasConvenio.setText("" + inicio.principal.datos.getHorasConvenio());
+            txtPorcentaje.setText("" + inicio.principal.datos.getPorcentaje());
             txtKilometraje.setText("" + inicio.principal.datos.getKilometraje());
             txtNochebuena.setText("" + inicio.principal.datos.getNochebuena());
             txtPeligrosidad.setText("" + inicio.principal.datos.getPeligro());
@@ -101,13 +101,12 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         btnObtenerDatos = new javax.swing.JButton();
-        txtHorasConvenio = new javax.swing.JTextField();
+        txtPorcentaje = new javax.swing.JTextField();
         lblInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Introducir datos");
         setName("MeterDatos"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(460, 390));
         setResizable(false);
 
         txtAntiguedad.setColumns(6);
@@ -197,7 +196,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        txtHorasConvenio.setColumns(6);
+        txtPorcentaje.setColumns(6);
 
         lblInfo.setForeground(java.awt.Color.red);
         lblInfo.setText("Hay errores o falta algún dato");
@@ -220,7 +219,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtHorasConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
@@ -360,7 +359,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtHorasConvenio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(lblInfo)
@@ -417,7 +416,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
             txtKilometraje.setText(datos[10]);
             txtRadio.setText(datos[11]);
             txtRadioBasica.setText(datos[12]);
-            txtHorasConvenio.setText(datos[13]);
+            txtPorcentaje.setText(datos[13]);
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(null,
                     "Chungo, Ha fallado la conexion",
@@ -437,7 +436,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
                 inicio.d.setHoraExtra(Double.parseDouble(txtHoraExtra.getText().replace(',', '.')));
                 inicio.d.setHoraFestiva(Double.parseDouble(txtHoraFestiva.getText().replace(',', '.')));
                 inicio.d.setHoraNocturna(Double.parseDouble(txtHoraNocturna.getText().replace(',', '.')));
-                inicio.d.setHorasConvenio(Double.parseDouble(txtHorasConvenio.getText().replace(',', '.')));
+                inicio.d.setPorcentaje(Double.parseDouble(txtPorcentaje.getText().replace(',', '.')));
                 inicio.d.setKilometraje(Double.parseDouble(txtKilometraje.getText().replace(',', '.')));
                 inicio.d.setNochebuena(Double.parseDouble(txtNochebuena.getText().replace(',', '.')));
                 inicio.d.setPeligro(Double.parseDouble(txtPeligrosidad.getText().replace(',', '.')));
@@ -462,7 +461,7 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
                 inicio.principal.datos.setHoraExtra(Double.parseDouble(txtHoraExtra.getText().replace(',', '.')));
                 inicio.principal.datos.setHoraFestiva(Double.parseDouble(txtHoraFestiva.getText().replace(',', '.')));
                 inicio.principal.datos.setHoraNocturna(Double.parseDouble(txtHoraNocturna.getText().replace(',', '.')));
-                inicio.principal.datos.setHorasConvenio(Double.parseDouble(txtHorasConvenio.getText().replace(',', '.')));
+                inicio.principal.datos.setPorcentaje(Double.parseDouble(txtPorcentaje.getText().replace(',', '.')));
                 inicio.principal.datos.setKilometraje(Double.parseDouble(txtKilometraje.getText().replace(',', '.')));
                 inicio.principal.datos.setNochebuena(Double.parseDouble(txtNochebuena.getText().replace(',', '.')));
                 inicio.principal.datos.setPeligro(Double.parseDouble(txtPeligrosidad.getText().replace(',', '.')));
@@ -507,10 +506,10 @@ public class MeterDatos extends javax.swing.JFrame implements Runnable {
     private javax.swing.JTextField txtHoraExtra;
     private javax.swing.JTextField txtHoraFestiva;
     private javax.swing.JTextField txtHoraNocturna;
-    private javax.swing.JTextField txtHorasConvenio;
     private javax.swing.JTextField txtKilometraje;
     private javax.swing.JTextField txtNochebuena;
     private javax.swing.JTextField txtPeligrosidad;
+    private javax.swing.JTextField txtPorcentaje;
     private javax.swing.JTextField txtQuinquenio;
     private javax.swing.JTextField txtRadio;
     private javax.swing.JTextField txtRadioBasica;

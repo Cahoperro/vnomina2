@@ -10,33 +10,39 @@ public class Mes implements Serializable {
 
     Dias[] dia;
     private int n;
-    private double horasMes,horasNocturnas,horasFestivas,horasRadio,HorasRadioB;
-    private double horasArma,horasVacaciones,totalRadio,totalRadioB, extras;
-    private double totalFestivos,totalNocturnidad,prorrata,totalDevengado;
-    private double irpf,totalDeducir,liquido,fp,cComunes,desempleo,antiguedad;
+    private double horasMes, horasNocturnas, horasFestivas, horasRadio, HorasRadioB;
+    private double horasArma, horasVacaciones, totalRadio, totalRadioB, extras;
+    private double totalFestivos, totalNocturnidad, prorrata, totalDevengado;
+    private double irpf, totalDeducir, liquido, fp, cComunes, desempleo, antiguedad;
     private double tAportaciones, tIrpf;
-    boolean porrateo,nochebuena, nochevieja,jefeEquipo,trienios;
-    
+    boolean porrateo, nochebuena, nochevieja, jefeEquipo, trienios;
+
     public Mes(int i, boolean bis) {
-        if (i == 3 || i == 5 || i == 8 || i == 10) {
-            n = 30;
-        } else if (i == 1) {
-            if (bis == false) {
-                n = 28;
-            } else {
-                n = 29;
-            }
-        } else {
-            n = 31;
+        switch (i) {
+            case 3:
+            case 5:
+            case 8:
+            case 10:
+                n = 30;
+                break;
+            case 1:
+                if (bis == false) {
+                    n = 28;
+                } else {
+                    n = 29;
+                }   break;
+            default:
+                n = 31;
+                break;
         }
         dia = new Dias[n];
         for (int j = 0; j < n; j++) {
             dia[j] = new Dias();
         }
     }
-    
-    public void calculoMes(){
-        
+
+    public void calculoMes() {
+
     }
 
     public double getExtras() {
@@ -46,7 +52,7 @@ public class Mes implements Serializable {
     public void setExtras(double extras) {
         this.extras = extras;
     }
-    
+
     public double gettIrpf() {
         return tIrpf;
     }
@@ -54,7 +60,7 @@ public class Mes implements Serializable {
     public void settIrpf(double tIrpf) {
         this.tIrpf = tIrpf;
     }
-    
+
     public boolean isNochebuena() {
         return nochebuena;
     }
@@ -134,7 +140,7 @@ public class Mes implements Serializable {
     public void setJefeEquipo(boolean jefeEquipo) {
         this.jefeEquipo = jefeEquipo;
     }
-    
+
     public double getHorasVacaciones() {
         return horasVacaciones;
     }
@@ -214,7 +220,7 @@ public class Mes implements Serializable {
     public void setN(int n) {
         this.n = n;
     }
-    
+
     public double getTotalFestivos() {
         return totalFestivos;
     }
@@ -270,5 +276,5 @@ public class Mes implements Serializable {
     public void setLiquido(double liquido) {
         this.liquido = liquido;
     }
-    
+
 }
