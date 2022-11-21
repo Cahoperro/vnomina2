@@ -96,7 +96,7 @@ public class AcercaDe extends javax.swing.JFrame implements Runnable {
         jLabel4.setText("Jose Olivencia Puentes");
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Compilado el 14 de abril de 2013 o despues");
+        jLabel6.setText("Compilado el 14 de abril de 2022 o despues");
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Usando NetBeans y Ubuntu");
